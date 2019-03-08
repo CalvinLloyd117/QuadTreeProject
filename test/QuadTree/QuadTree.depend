@@ -1,0 +1,26 @@
+# depslib dependency file v1.0
+1552086408 source:/home/sina3740/QuadTreeProject/QuadTree/main.cpp
+	"QuadTree.h"
+	<cstdlib>
+	<iostream>
+
+1552085895 /home/sina3740/QuadTreeProject/QuadTree/QuadTree.h
+	<iostream>
+	<cmath>
+
+1552085920 source:/home/sina3740/QuadTreeProject/QuadTree/QuadTree.cpp
+	"QuadTree.h"
+
+1552088708 source:/home/sina3740/QuadTreeProject/test/QuadTree/main.cpp
+	"QuadTree.h"
+	<cstdlib>
+	<iostream>
+	<vector>
+
+1552085895 /home/sina3740/QuadTreeProject/test/QuadTree/QuadTree.h
+	<iostream>
+	<cmath>
+
+1552085920 source:/home/sina3740/QuadTreeProject/test/QuadTree/QuadTree.cpp
+	"QuadTree.h"
+
