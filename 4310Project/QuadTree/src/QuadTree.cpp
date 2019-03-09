@@ -45,7 +45,6 @@ void QuadTree::insert(Node *node)
         if (dataNode==nullptr)
         {
             dataNode=node;
-
         }
         return;
     }

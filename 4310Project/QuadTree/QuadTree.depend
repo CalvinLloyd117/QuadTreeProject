@@ -1,5 +1,5 @@
 # depslib dependency file v1.0
-1552167739 source:/home/lloc3740/4310Project/QuadTree/main.cpp
+1552171257 source:/home/lloc3740/4310Project/QuadTree/main.cpp
 	"QuadTree.h"
 	<cstdlib>
 	<iostream>
@@ -7,25 +7,11 @@
 	<ctime>
 	<iomanip>
 
-1552104545 source:/home/lloc3740/4310Project/QuadTree/src/QuadTree.cpp
+1552171240 source:/home/lloc3740/4310Project/QuadTree/src/QuadTree.cpp
 	"QuadTree.h"
 
-1552103556 /home/lloc3740/4310Project/QuadTree/include/QuadTree.h
+1552172450 /home/lloc3740/4310Project/QuadTree/include/QuadTree.h
 	<iostream>
 	<cmath>
-
-1552169783 source:/home/sina3740/QuadTreeProject/4310Project/QuadTree/main.cpp
-	"QuadTree.h"
-	<cstdlib>
-	<iostream>
 	<vector>
-	<ctime>
-	<iomanip>
-
-1552169783 /home/sina3740/QuadTreeProject/4310Project/QuadTree/include/QuadTree.h
-	<iostream>
-	<cmath>
-
-1552169783 source:/home/sina3740/QuadTreeProject/4310Project/QuadTree/src/QuadTree.cpp
-	"QuadTree.h"
 
