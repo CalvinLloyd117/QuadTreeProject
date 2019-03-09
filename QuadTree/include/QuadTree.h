@@ -1,8 +1,5 @@
-#include <iostream>
-#include <cmath>
-using namespace std;
-
-// Used to hold details of a point
+#ifndef QUADTREE_H
+#define QUADTREE_H
 struct Point
 {
     int x;
@@ -10,54 +7,57 @@ struct Point
 
     Point(int X, int Y)
     {
-        x = X;
-        y = X;
+        x=X;
+        y=Y;
     }
     Point()
     {
-        x = 0;
-        y = 0;
+        x=0;
+        y=0;
     }
 };
 
-// The objects that we want stored in the quadtree
 struct Node
 {
-    Point location;
+    Point position;
     int data;
-
-    Node(Point in, int inData)
+    Node(Point pos, int info)
     {
-        location = in;
-        data = inData;
+        position=pos;
+        data=info;
     }
     Node()
     {
-        data = 0;
+        data=0;
     }
 };
 
-// The main quadtree class
 class QuadTree
 {
-    // Hold details of the boundary of this node
-    Point topLeft;
-    Point bottomRight;
+    public:
+        QuadTree();
+        QuadTree(Point topL, Point bottomR);
+        virtual ~QuadTree();
+        void populateRandomly();
 
-    // Contains details of node
-    Node *dataNode;
+        void insert(Node*);
+        Node* search(Point);
 
-    // Children of this tree
-    QuadTree *NW;
-    QuadTree *NE;
-    QuadTree *SW;
-    QuadTree *SE;
+    protected:
 
-public:
-    void randomlyPopulate(int numNodes, )
-    QuadTree();
-    QuadTree(Point topL, Point botR);
-    void insert(Node*);
-    Node* search(Point);
-    bool inSubtree(Point);
+    private:
+        QuadTree *NW;
+        QuadTree *NE;
+        QuadTree *SW;
+        QuadTree *SE;
+
+        Node* node;
+
+        Point topLeft;
+        Point bottomRight;
+
+        bool inSubtree(Point);
+
 };
+
+#endif // QUADTREE_H
