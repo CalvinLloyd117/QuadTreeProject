@@ -21,18 +21,21 @@ QuadTree::QuadTree(Point topL, Point botR)
     topLeft=topL;
     bottomRight=botR;
 }
-
+int QuadTree::numFound;
+int QuadTree::numVisited;
 // Insert a node into the quadtree
 void QuadTree::insert(Node *node)
 {
     if(node==nullptr)
     {
+        cout<<"Not a valid node."<<endl;
         return;
     }
 
     /// Current quad cannot contain it
     if(!inSubtree(node->location))
     {
+        cout<<"Tree cannot contain this node."<<endl;
         return;
     }
 
@@ -115,12 +118,11 @@ Node* QuadTree::search(Point p)
     {
         return nullptr;
     }
-
-
     // We are at a quad of unit length
     // We cannot subdivide this quad further
     if(dataNode != nullptr)
     {
+        numFound++;
         return dataNode;
     }
     if((topLeft.x+bottomRight.x)/2>=p.x)
@@ -130,8 +132,10 @@ Node* QuadTree::search(Point p)
         {
             if(NW == nullptr)
             {
+                //numVisited++;
                 return nullptr;
             }
+            numVisited++;
             return NW->search(p);
         }
 
@@ -140,9 +144,10 @@ Node* QuadTree::search(Point p)
         {
             if(SW == nullptr)
             {
+                //numVisited++;
                 return nullptr;
             }
-
+            numVisited++;
             return SW->search(p);
         }
     }
@@ -152,7 +157,11 @@ Node* QuadTree::search(Point p)
         if((topLeft.y+bottomRight.y)/2>=p.y)
         {
             if (NE==nullptr)
+            {
+                //numVisited++;
                 return nullptr;
+            }
+            numVisited++;
             return NE->search(p);
         }
         // Indicates SE
@@ -160,9 +169,10 @@ Node* QuadTree::search(Point p)
         {
             if(SE==nullptr)
             {
+                //numVisited++;
                 return nullptr;
             }
-
+            numVisited++;
             return SE->search(p);
         }
     }
@@ -177,4 +187,19 @@ bool QuadTree::inSubtree(Point p)
             p.y <= bottomRight.y
             );
 }
+
+int QuadTree::getFound()
+{
+    return numFound;
+}
+
+int QuadTree::getVisited()
+{
+    return numVisited;
+}
+ void QuadTree::resetVisited()
+ {
+     numVisited=0;
+     numFound=0;
+ }
 

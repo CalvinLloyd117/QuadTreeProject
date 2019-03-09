@@ -11,7 +11,7 @@ struct Point
     Point(int X, int Y)
     {
         x = X;
-        y = X;
+        y = Y;
     }
     Point()
     {
@@ -40,24 +40,31 @@ struct Node
 // The main quadtree class
 class QuadTree
 {
-    // Hold details of the boundary of this node
-    Point topLeft;
-    Point bottomRight;
+    public:
+        QuadTree();
+        QuadTree(Point topL, Point botR);
 
-    // Contains details of node
-    Node *dataNode;
+        void insert(Node*);
+        Node* search(Point);
+        int getFound();
+        int getVisited();
+        void resetVisited();
 
-    // Children of this tree
-    QuadTree *NW;
-    QuadTree *NE;
-    QuadTree *SW;
-    QuadTree *SE;
+    private:
+        bool inSubtree(Point);
+        Point topLeft;
+        Point bottomRight;
 
-public:
-//    void randomlyPopulate(int numNodes, )
-    QuadTree();
-    QuadTree(Point topL, Point botR);
-    void insert(Node*);
-    Node* search(Point);
-    bool inSubtree(Point);
+        // Contains details of node
+        Node *dataNode;
+
+        // Children of this tree
+        QuadTree *NW;
+        QuadTree *NE;
+        QuadTree *SW;
+        QuadTree *SE;
+        static int numVisited;
+        static int numFound;
+
+
 };
