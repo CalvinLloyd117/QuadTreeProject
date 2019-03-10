@@ -182,13 +182,13 @@ int main()
             ///2000 and 4000 nodes just like Finkel and Bentley did in their paper.
             case 6:
             {
-                cout<<"Average results of 100 Experiments..."<<endl;
-                runAverageExperiment(center, 125, 100000);
-                runAverageExperiment(center, 250, 100000);
-                runAverageExperiment(center, 500, 100000);
-                runAverageExperiment(center, 1000, 100000);
-                runAverageExperiment(center, 2000, 100000);
-                runAverageExperiment(center, 4000, 100000);
+                cout<<"Average results of 1000 Experiments..."<<endl;
+                runAverageExperiment(center, 125, 1000);
+                runAverageExperiment(center, 250, 1000);
+                runAverageExperiment(center, 500, 1000);
+                runAverageExperiment(center, 1000, 1000);
+                runAverageExperiment(center, 2000, 1000);
+                runAverageExperiment(center, 4000, 1000);
                 break;
             }
         }
