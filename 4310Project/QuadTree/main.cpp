@@ -33,7 +33,8 @@ int main()
     int menuOption;
     ///the main quadtree which is a massive grid of
     ///100 by 100, which is a total of 10000 area
-    QuadTree center(Point(0, 0), Point(100, 100));
+    QuadTree experimentTree(Point(0, 0), Point(100, 100));
+    QuadTree stdTree(Point(0, 0), Point(100, 100));
 
     ///the menu which has 7 options and they are below
     while(menuOption!=7)
@@ -71,8 +72,8 @@ int main()
                 ///inserting into the tree by making a Node which stores
                 ///the location - x and y and the data value
                 Node temp(Point(x,y),val);
-                center.insert(&temp);
-
+                stdTree.insert(&temp);
+                stdTree.resetVisited();
                 ///to ensure that the input buffer is valid and clearing
                 cin.clear();
                 break;
@@ -87,9 +88,9 @@ int main()
 
                 ///outputting the searched value at that coordinate and resetting the tree visited
                 ///nodes because that node is considered visited in the tree
-                cout<<center.search(Point(x, y))->data<<endl;
-                cout<<"Visited: "<<center.getVisited()<<" Found: "<<center.getFound()<<endl;
-                center.resetVisited();
+                cout<<stdTree.search(Point(x, y))->data<<endl;
+                cout<<"Visited: "<<stdTree.getVisited()<<" Found: "<<stdTree.getFound()<<endl;
+                stdTree.resetVisited();
 
                 ///to ensure that the input buffer is valid and clearing
                 cin.clear();
@@ -125,12 +126,12 @@ int main()
                 for(int i=0; i<125; i++)
                 {
                     ///inserting into the quadtree with the vector of nodes at the position i
-                    center.insert(&nodes.at(i));
+                    stdTree.insert(&nodes.at(i));
                     ///outputting the vector of nodes so that we can see what we are inserting into the tree
                     ///and also to compare it to the random values we outputted in the for loop above.
                     cout<<"Node x: "<<nodes.at(i).location.x<<"Node y: "<<nodes.at(i).location.y<<"Node val"<<nodes.at(i).data<<endl<<endl;
                 }
-
+                stdTree.resetVisited();
                 ///to ensure that the input buffer is valid and clearing
                 cin.clear();
                 break;
@@ -146,14 +147,14 @@ int main()
                     int x=rand()%100;
                     int y=rand()%100;
                     ///searching for the values
-                    center.search(Point(x, y));
+                    stdTree.search(Point(x, y));
                 }
 
                 ///outputting the searched values. The format is visited and found.
-                cout<<"Visited: "<<center.getVisited()<<" Found: "<<center.getFound()<<endl;
+                cout<<"Visited: "<<stdTree.getVisited()<<" Found: "<<stdTree.getFound()<<endl;
 
                 ///resetting the tree's visited nodes
-                center.resetVisited();
+                stdTree.resetVisited();
 
                 ///to ensure that the input buffer is valid and clearing
                 cin.clear();
@@ -167,12 +168,18 @@ int main()
             case 5:
             {
                 cout<<"Conducting experiment..."<<endl;
-                runExperiment(center,125);
-                runExperiment(center,250);
-                runExperiment(center,500);
-                runExperiment(center,1000);
-                runExperiment(center,2000);
-                runExperiment(center,4000);
+                runExperiment(experimentTree,125);
+                experimentTree.resetVisited();
+                runExperiment(experimentTree,250);
+                experimentTree.resetVisited();
+                runExperiment(experimentTree,500);
+                experimentTree.resetVisited();
+                runExperiment(experimentTree,1000);
+                experimentTree.resetVisited();
+                runExperiment(experimentTree,2000);
+                experimentTree.resetVisited();
+                runExperiment(experimentTree,4000);
+                experimentTree.resetVisited();
                 break;
             }
 
@@ -183,12 +190,18 @@ int main()
             case 6:
             {
                 cout<<"Average results of 1000 Experiments..."<<endl;
-                runAverageExperiment(center, 125, 1000);
-                runAverageExperiment(center, 250, 1000);
-                runAverageExperiment(center, 500, 1000);
-                runAverageExperiment(center, 1000, 1000);
-                runAverageExperiment(center, 2000, 1000);
-                runAverageExperiment(center, 4000, 1000);
+                runAverageExperiment(experimentTree, 125, 1000);
+                experimentTree.resetVisited();
+                runAverageExperiment(experimentTree, 250, 1000);
+                experimentTree.resetVisited();
+                runAverageExperiment(experimentTree, 500, 1000);
+                experimentTree.resetVisited();
+                runAverageExperiment(experimentTree, 1000, 1000);
+                experimentTree.resetVisited();
+                runAverageExperiment(experimentTree, 2000, 1000);
+                experimentTree.resetVisited();
+                runAverageExperiment(experimentTree, 4000, 1000);
+                experimentTree.resetVisited();
                 break;
             }
         }
