@@ -37,7 +37,7 @@ int main()
     QuadTree stdTree(Point(0, 0), Point(100, 100));
 
     ///the menu which has 7 options and they are below
-    while(menuOption!=7)
+    while(menuOption!=8)
     {
         ///menu display
         cout<<"Main menu:"<<endl;
@@ -47,7 +47,8 @@ int main()
             <<"4. Search the tree."<<endl
             <<"5. Run Experiment (populate/search)."<<endl
             <<"6. Run Average Experiment(populate/search)."<<endl
-            <<"7. Exit."<<endl;
+            <<"7. Delete a node."<<endl
+            <<"8. Exit."<<endl;
 
         ///ensuring that the input is valid
         do
@@ -85,12 +86,20 @@ int main()
             {
                 cout<<"Enter coordinates to search for."<<endl;
                 cin>>x>>y;
-
                 ///outputting the searched value at that coordinate and resetting the tree visited
                 ///nodes because that node is considered visited in the tree
-                cout<<stdTree.search(Point(x, y))->data<<endl;
-                cout<<"Visited: "<<stdTree.getVisited()<<" Found: "<<stdTree.getFound()<<endl;
-                stdTree.resetVisited();
+                Node *s = stdTree.search(Point(x, y));
+                if(s != nullptr)
+                {
+                    //cout<<stdTree.search(Point(x, y))->data<<endl;
+                    cout<<s->data<<endl;
+                    cout<<"Visited: "<<stdTree.getVisited()<<" Found: "<<stdTree.getFound()<<endl;
+                    stdTree.resetVisited();
+                }
+                else
+                {
+                    cout<<"Not in tree"<<endl;
+                }
 
                 ///to ensure that the input buffer is valid and clearing
                 cin.clear();
@@ -203,6 +212,31 @@ int main()
                 runAverageExperiment(experimentTree, 4000, 1000);
                 experimentTree.resetVisited();
                 break;
+            }
+            case 7:
+            {
+                cout<<"Enter coordinates to delete for."<<endl;
+                cin>>x>>y;
+
+                ///outputting the searched value at that coordinate and resetting the tree visited
+                ///nodes because that node is considered visited in the tree
+                //cout<<stdTree.deleteNode(Point(x, y))<<endl;//->data<<endl;
+                if(stdTree.deleteNode(Point(x,y)) == nullptr)
+                {
+
+                    cout<<"Deleted node"<<endl;
+                }
+                //cout<<"Visited: "<<stdTree.getVisited()<<" Found: "<<stdTree.getFound()<<endl;
+                //stdTree.resetVisited();
+
+                ///to ensure that the input buffer is valid and clearing
+                cin.clear();
+                break;
+            }
+            case 8:
+            {
+                cout<<"Exiting"<<endl;
+                return 0;
             }
         }
     }

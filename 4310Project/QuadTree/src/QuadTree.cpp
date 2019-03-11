@@ -64,6 +64,7 @@ void QuadTree::insert(Node *node)
     {
         if (dataNode==nullptr)
         {
+            //cout<<"Inserting Node."<<endl;
             dataNode = node;
         }
         return;
@@ -73,11 +74,13 @@ void QuadTree::insert(Node *node)
     ///then we check the y coordinates as well and then insert into that quadrant
     ///using recursion. The quadrants are NW and SW, and we insert into either of those
     ///depending on the coordinates.
+    ///NODE BELONGS IN THE TOP HALF OF THE TREE
     if((topLeft.x+bottomRight.x)/2>=node->location.x)
     {
         ///this indicates the NW quadrant
         if((topLeft.y+bottomRight.y)/2>=node->location.y)
         {
+            //cout<<"Traversing the NW quadrant."<<endl;
             ///if the NW quadrant is empty, then we insert into there using recursion.
             if (NW==nullptr)
                 NW=new QuadTree(
@@ -90,6 +93,7 @@ void QuadTree::insert(Node *node)
         ///this indicates the SW quadrant
         else
         {
+            //cout<<"Traversing the SW quadrant."<<endl;
             ///if the SW quadrant is empty, then we insert into there using recursion.
             if(SW==nullptr)
                 SW=new QuadTree(
@@ -109,6 +113,7 @@ void QuadTree::insert(Node *node)
         ///similar checks to above
         if((topLeft.y+bottomRight.y)/2>=node->location.y)
         {
+            //cout<<"Traversing the NE quadrant."<<endl;
             ///inserting into NE quadrant
             if(NE==nullptr)
             {
@@ -125,6 +130,7 @@ void QuadTree::insert(Node *node)
         ///indicates SE quadrant
         else
         {
+            //cout<<"Traversing the SE quadrant."<<endl;
             ///inserting into the SE quadrant
             if (SE==nullptr)
             {
@@ -166,6 +172,7 @@ Node* QuadTree::search(Point p)
         ///indicates NW quadrant to search
         if((topLeft.y+bottomRight.y)/2>=p.y)
         {
+            //cout<<"Searching the NW quadrant."<<endl;
             ///quadrant does not have the point we are searching for
             if(NW == nullptr)
             {
@@ -184,6 +191,7 @@ Node* QuadTree::search(Point p)
         ///indicates SW
         else
         {
+            //cout<<"Searching the SW quadrant."<<endl;
             ///quadrant does not have the point we are searching for
             if(SW == nullptr)
             {
@@ -204,6 +212,7 @@ Node* QuadTree::search(Point p)
         ///indicates NE
         if((topLeft.y+bottomRight.y)/2>=p.y)
         {
+            //cout<<"Searching the NE quadrant."<<endl;
             ///quadrant does not have the point we are searching for
             if (NE==nullptr)
             {
@@ -221,6 +230,7 @@ Node* QuadTree::search(Point p)
         ///indicates SE
         else
         {
+            //cout<<"Searching the SE quadrant."<<endl;
             ///quadrant does not have the point we are searching for
             if(SE==nullptr)
             {
@@ -237,6 +247,106 @@ Node* QuadTree::search(Point p)
         }
     }
 };
+
+///Function to delete the tree, which takes in a point(x,y) which is used for the
+///deleting. It then traverses the tree until it reaches the requested data value
+///associated at that point. It will then return the deleted node.
+Node* QuadTree::deleteNode(Point p)
+{
+    ///current quadtree cannot contain the node
+    if(!inSubtree(p))
+    {
+        return nullptr;
+    }
+
+    ///base case where we return the dataNode if it is found
+    ///and increase numFound because the node is found
+    if(dataNode != nullptr)
+    {
+        //numFound++;
+        dataNode = nullptr;
+        return dataNode;
+    }
+
+    ///similar to insert in that we use the coordinates to
+    ///determine which quadrant we are in and then use
+    ///recursion to delete through the tree.
+    if((topLeft.x+bottomRight.x)/2>=p.x)
+    {
+        ///indicates NW quadrant to delete
+        if((topLeft.y+bottomRight.y)/2>=p.y)
+        {
+            ///quadrant does not have the point we are deleting
+            if(NW == nullptr)
+            {
+                return nullptr;
+            }
+
+            ///increment numVisited because we have visited that
+            ///node but have not found it
+            //numVisited++;
+
+            ///use recursion to continue on the delete
+            ///and determine if it is in that specific quadrant
+            return NW->deleteNode(p);
+        }
+
+        ///indicates SW
+        else
+        {
+            ///quadrant does not have the point we are deleting
+            if(SW == nullptr)
+            {
+                return nullptr;
+            }
+
+            ///increment numVisited because we have visited that
+            ///node but have not found it
+            //numVisited++;
+
+            ///use recursion to continue on the deleting
+            ///and determine if it is in that specific quadrant
+            return SW->deleteNode(p);
+        }
+    }
+    else
+    {
+        ///indicates NE
+        if((topLeft.y+bottomRight.y)/2>=p.y)
+        {
+            ///quadrant does not have the point we are deleting for
+            if (NE==nullptr)
+            {
+                return nullptr;
+            }
+
+            ///increment numVisited because we have visited that
+            ///node but have not found it
+            //numVisited++;
+
+            ///use recursion to continue on the deleting
+            ///and determine if it is in that specific quadrant
+            return NE->deleteNode(p);
+        }
+        ///indicates SE
+        else
+        {
+            ///quadrant does not have the point we are deleting
+            if(SE==nullptr)
+            {
+                return nullptr;
+            }
+
+            ///increment numVisited because we have visited that
+            ///node but have not found it
+            //numVisited++;
+
+            ///use recursion to continue on the deleting
+            ///and determine if it is in that specific quadrant
+            return SE->deleteNode(p);
+        }
+    }
+}
 
 ///helper function which checks to see if a node could
 ///possibly exist in a subtree. It is also used to make the

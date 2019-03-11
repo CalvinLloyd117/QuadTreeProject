@@ -79,6 +79,10 @@ class QuadTree
         ///Should be used after each experiment iteration.
         void resetVisited();
 
+        ///Function to delete the tree. Takes in a point to search for. Traverses
+        ///the tree until it reaches the requested node. Then, deletes the node.
+        Node* deleteNode(Point);
+
     private:
         ///Helper function. Checks to see if a node could possibly exist in the subtree.
         ///used to make the decision of which subtree to traverse next.
